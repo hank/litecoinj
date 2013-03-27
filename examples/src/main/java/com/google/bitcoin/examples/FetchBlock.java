@@ -42,7 +42,7 @@ public class FetchBlock {
         peerGroup.waitForPeers(1).get();
         Peer peer = peerGroup.getConnectedPeers().get(0);
 
-        Sha256Hash blockHash = new Sha256Hash("ddb0f5d856652582af0715870a4123d5065ba09fe6a0d2c117c8983d8e9ad751");
+        Sha256Hash blockHash = new Sha256Hash("7fd90d37349af9057e0dea890971a8c2fa34457f63edb7db116aec9fb0670874");
         Future<Block> future = peer.getBlock(blockHash);
         System.out.println("Waiting for node to send us the requested block: " + blockHash);
         Block block = future.get();
