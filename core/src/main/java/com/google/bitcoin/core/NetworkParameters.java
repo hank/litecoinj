@@ -40,7 +40,7 @@ public class NetworkParameters implements Serializable {
     /**
      * The protocol version this library implements.
      */
-    public static final int PROTOCOL_VERSION = 70001;
+    public static final int PROTOCOL_VERSION = 60001;
 
     /**
      * The alert signing key originally owned by Satoshi, and now passed on to Gavin along with a few others.
@@ -141,47 +141,48 @@ public class NetworkParameters implements Serializable {
             // Production.
             interval = INTERVAL;
             targetTimespan = TARGET_TIMESPAN;
-            proofOfWorkLimit = Utils.decodeCompactBits(0x1d00ffffL);
-            acceptableAddressCodes = new int[] { 0 };
+            proofOfWorkLimit = Utils.decodeCompactBits(0x1e0fffffL);
+            acceptableAddressCodes = new int[] { 48 };
             dumpedPrivateKeyHeader = 128;
-            addressHeader = 0;
-            port = 8333;
-            packetMagic = 0xf9beb4d9L;
-            genesisBlock.setDifficultyTarget(0x1d00ffffL);
-            genesisBlock.setTime(1231006505L);
-            genesisBlock.setNonce(2083236893);
+            addressHeader = 48;
+            port = 9333;
+            packetMagic = 0xfbc0b6db;
+            genesisBlock.setDifficultyTarget(0x1e0ffff0L);
+            genesisBlock.setTime(1317972665L);
+            genesisBlock.setNonce(2084524493L);
+            genesisBlock.setMerkleRoot(new Sha256Hash("97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9"));
             id = ID_PRODNET;
-            subsidyDecreaseBlockCount = 210000;
+            subsidyDecreaseBlockCount = 840000;
             allowEmptyPeerChains = false;
             spendableCoinbaseDepth = 100;
             String genesisHash = genesisBlock.getHashAsString();
-            checkState(genesisHash.equals("000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"),
+            checkState(genesisHash.equals("12a765e31ffd4059bada1e25190f6e98c99d9714d334efa41a195a7e7e04bfe2"),
                     genesisHash);
 
             // This contains (at a minimum) the blocks which are not BIP30 compliant. BIP30 changed how duplicate
             // transactions are handled. Duplicated transactions could occur in the case where a coinbase had the same
             // extraNonce and the same outputs but appeared at different heights, and greatly complicated re-org handling.
             // Having these here simplifies block connection logic considerably.
-            checkpoints.put(91722, new Sha256Hash("00000000000271a2dc26e7667f8419f2e15416dc6955e5a6c6cdf3f2574dd08e"));
-            checkpoints.put(91812, new Sha256Hash("00000000000af0aed4792b1acee3d966af36cf5def14935db8de83d6f9306f2f"));
-            checkpoints.put(91842, new Sha256Hash("00000000000a4d0a398161ffc163c503763b1f4360639393e0e4c8e300e0caec"));
-            checkpoints.put(91880, new Sha256Hash("00000000000743f190a18c5577a3c2d2a1f610ae9601ac046a38084ccb7cd721"));
-            checkpoints.put(200000, new Sha256Hash("000000000000034a7dedef4a161fa058a2d67a173a90155f3a2fe6fc132e0ebf"));
+            //checkpoints.put(91722, new Sha256Hash("00000000000271a2dc26e7667f8419f2e15416dc6955e5a6c6cdf3f2574dd08e"));
+            //checkpoints.put(91812, new Sha256Hash("00000000000af0aed4792b1acee3d966af36cf5def14935db8de83d6f9306f2f"));
+            //checkpoints.put(91842, new Sha256Hash("00000000000a4d0a398161ffc163c503763b1f4360639393e0e4c8e300e0caec"));
+            //checkpoints.put(91880, new Sha256Hash("00000000000743f190a18c5577a3c2d2a1f610ae9601ac046a38084ccb7cd721"));
+            //checkpoints.put(200000, new Sha256Hash("000000000000034a7dedef4a161fa058a2d67a173a90155f3a2fe6fc132e0ebf"));
         } else if (type == 3) {
             // Testnet3
             id = ID_TESTNET;
             // Genesis hash is 000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943
-            packetMagic = 0x0b110907;
+            packetMagic = 0xfcc1b7dc;
             interval = INTERVAL;
             targetTimespan = TARGET_TIMESPAN;
             proofOfWorkLimit = Utils.decodeCompactBits(0x1d00ffffL);
-            port = 18333;
+            port = 19333;
             addressHeader = 111;
             acceptableAddressCodes = new int[] { 111 };
             dumpedPrivateKeyHeader = 239;
-            genesisBlock.setTime(1296688602L);
-            genesisBlock.setDifficultyTarget(0x1d00ffffL);
-            genesisBlock.setNonce(414098458);
+            genesisBlock.setTime(1320884152L);
+            genesisBlock.setDifficultyTarget(0x1d018ea7L);
+            genesisBlock.setNonce(3562614017L);
             allowEmptyPeerChains = true;
             spendableCoinbaseDepth = 100;
             subsidyDecreaseBlockCount = 210000;
@@ -215,7 +216,7 @@ public class NetworkParameters implements Serializable {
             genesisBlock.setTime(System.currentTimeMillis() / 1000);
             genesisBlock.setDifficultyTarget(Block.EASIEST_DIFFICULTY_TARGET);
             genesisBlock.solve();
-            port = 18333;
+            port = 19333;
             interval = 10;
             dumpedPrivateKeyHeader = 239;
             allowEmptyPeerChains = false;
@@ -236,11 +237,11 @@ public class NetworkParameters implements Serializable {
             //
             //   "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks"
             byte[] bytes = Hex.decode
-                    ("04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73");
+                    ("04b217bb4e022309");
             t.addInput(new TransactionInput(n, t, bytes));
             ByteArrayOutputStream scriptPubKeyBytes = new ByteArrayOutputStream();
             Script.writeBytes(scriptPubKeyBytes, Hex.decode
-                    ("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f"));
+                    ("41044870341873accab7600d65e204bb4ae47c43d20c562ebfbf70cbcb188da98dec8b5ccf0526c8e4d954c6b47b898cc30adf1ff77c2e518ddc9785b87ccb90b8cdac"));
             scriptPubKeyBytes.write(Script.OP_CHECKSIG);
             t.addOutput(new TransactionOutput(n, t, Utils.toNanoCoins(50, 0), scriptPubKeyBytes.toByteArray()));
         } catch (Exception e) {
@@ -251,8 +252,8 @@ public class NetworkParameters implements Serializable {
         return genesisBlock;
     }
 
-    public static final int TARGET_TIMESPAN = 14 * 24 * 60 * 60;  // 2 weeks per difficulty cycle, on average.
-    public static final int TARGET_SPACING = 10 * 60;  // 10 minutes per block.
+    public static final int TARGET_TIMESPAN = (int)(3.5 * 24 * 60 * 60);  // 3.5 days per difficulty cycle, on average.
+    public static final int TARGET_SPACING = (int)(2.5 * 60);  // 2.5 minutes per block.
     public static final int INTERVAL = TARGET_TIMESPAN / TARGET_SPACING;
     
     /**

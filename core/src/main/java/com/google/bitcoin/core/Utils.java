@@ -19,6 +19,7 @@ package com.google.bitcoin.core;
 import com.google.common.util.concurrent.CycleDetectingLockFactory;
 import org.spongycastle.crypto.digests.RIPEMD160Digest;
 import org.spongycastle.util.encoders.Hex;
+import com.lambdaworks.crypto.SCrypt;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -161,6 +162,14 @@ public class Utils {
      */
     public static byte[] doubleDigest(byte[] input) {
         return doubleDigest(input, 0, input.length);
+    }
+    
+    public static byte[] scryptDigest(byte[] input) {
+        try {
+            return SCrypt.scrypt(input, input, 1024, 1, 1, 32);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**

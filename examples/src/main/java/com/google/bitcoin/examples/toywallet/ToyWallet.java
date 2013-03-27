@@ -57,7 +57,7 @@ public class ToyWallet {
 
     public static void main(String[] args) throws Exception {
         BriefLogFormatter.init();
-        new ToyWallet(true, true, args);
+        new ToyWallet(false, true, args);
     }
 
     // Converts the contents of the wallet to a table for the GUI.
@@ -179,6 +179,7 @@ public class ToyWallet {
         } else {
             peerGroup.addPeerDiscovery(new DnsDiscovery(params));
         }
+        peerGroup.setMaxConnections(20);
         peerGroup.addWallet(wallet);
 
         // Watch for peers coming and going so we can update the UI.

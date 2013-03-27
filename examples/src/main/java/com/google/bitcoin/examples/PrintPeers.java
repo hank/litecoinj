@@ -22,6 +22,7 @@ import com.google.bitcoin.core.VersionMessage;
 import com.google.bitcoin.discovery.DnsDiscovery;
 import com.google.bitcoin.discovery.IrcDiscovery;
 import com.google.bitcoin.discovery.PeerDiscoveryException;
+import com.google.bitcoin.discovery.SeedPeers;
 import com.google.bitcoin.utils.BriefLogFormatter;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.FutureCallback;
@@ -54,7 +55,7 @@ public class PrintPeers {
 
     private static void printIRC() throws PeerDiscoveryException {
         long start = System.currentTimeMillis();
-        IrcDiscovery d = new IrcDiscovery("#bitcoinTEST3") {
+        IrcDiscovery d = new IrcDiscovery("#litecoinTEST3") {
             @Override
             protected void onIRCReceive(String message) {
                 System.out.println("<- " + message);
