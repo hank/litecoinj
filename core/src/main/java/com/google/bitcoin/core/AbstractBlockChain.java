@@ -387,7 +387,7 @@ public abstract class AbstractBlockChain {
         StoredBlock head = getChainHead();
         if (storedPrev.equals(head)) {
             if (expensiveChecks && block.getTimeSeconds() <= getMedianTimestampOfRecentBlocks(head, blockStore))
-                throw new VerificationException("Block's timestamp is too early");
+                throw new VerificationException("Block's timestamp is too early " + block.getTimeSeconds() + " : " + getMedianTimestampOfRecentBlocks(head, blockStore));
             
             // This block connects to the best known block, it is a normal continuation of the system.
             TransactionOutputChanges txOutChanges = null;
@@ -495,7 +495,7 @@ public abstract class AbstractBlockChain {
         while (unused >= 0 && (storedBlock = storedBlock.getPrev(store)) != null)
             timestamps[unused--] = storedBlock.getHeader().getTimeSeconds();
         
-        Arrays.sort(timestamps, unused+1, 10);
+        Arrays.sort(timestamps, unused+1, 11);
         return timestamps[unused + (11-unused)/2];
     }
     
