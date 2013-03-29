@@ -33,8 +33,8 @@ public class AddressTest {
         Address a = new Address(testParams, Hex.decode("fda79a24e50ff70ff42f7d89585da5bd19d9e5cc"));
         assertEquals("n4eA2nbYqErp7H6jebchxAN59DmNpksexv", a.toString());
 
-        Address b = new Address(prodParams, Hex.decode("4a22c3c4cbb31e4d03b15550636762bda0baf85a"));
-        assertEquals("17kzeh4N8g49GFvdDzSf8PjaPfyoD1MndL", b.toString());
+        Address b = new Address(prodParams, Hex.decode("3f2ebb6c8d88e586b551303d2c29eba15518d8d1"));
+        assertEquals("LQz2pJYaeqntA9BFB8rDX5AL2TTKGd5AuN", b.toString());
     }
     
     @Test
@@ -42,8 +42,8 @@ public class AddressTest {
         Address a = new Address(testParams, "n4eA2nbYqErp7H6jebchxAN59DmNpksexv");
         assertEquals("fda79a24e50ff70ff42f7d89585da5bd19d9e5cc", Utils.bytesToHexString(a.getHash160()));
 
-        Address b = new Address(prodParams, "17kzeh4N8g49GFvdDzSf8PjaPfyoD1MndL");
-        assertEquals("4a22c3c4cbb31e4d03b15550636762bda0baf85a", Utils.bytesToHexString(b.getHash160()));
+        Address b = new Address(prodParams, "LQz2pJYaeqntA9BFB8rDX5AL2TTKGd5AuN");
+        assertEquals("3f2ebb6c8d88e586b551303d2c29eba15518d8d1", Utils.bytesToHexString(b.getHash160()));
     }
     
     @Test
@@ -70,7 +70,7 @@ public class AddressTest {
 
         // Check the case of a mismatched network.
         try {
-            new Address(testParams, "17kzeh4N8g49GFvdDzSf8PjaPfyoD1MndL");
+            new Address(testParams, "LQz2pJYaeqntA9BFB8rDX5AL2TTKGd5AuN");
             fail();
         } catch (WrongNetworkException e) {
             // Success.
@@ -83,7 +83,7 @@ public class AddressTest {
     
     @Test
     public void getNetwork() throws Exception {
-        NetworkParameters params = Address.getParametersFromAddress("17kzeh4N8g49GFvdDzSf8PjaPfyoD1MndL");
+        NetworkParameters params = Address.getParametersFromAddress("LQz2pJYaeqntA9BFB8rDX5AL2TTKGd5AuN");
         assertEquals(NetworkParameters.prodNet().getId(), params.getId());
         params = Address.getParametersFromAddress("n4eA2nbYqErp7H6jebchxAN59DmNpksexv");
         assertEquals(NetworkParameters.testNet().getId(), params.getId());

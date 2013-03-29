@@ -853,6 +853,7 @@ public class Block extends Message {
         unCacheHeader();
         this.prevBlockHash = prevBlockHash;
         this.hash = null;
+        this.scryptHash = null;
     }
 
     /**
@@ -875,6 +876,7 @@ public class Block extends Message {
         unCacheHeader();
         this.time = time;
         this.hash = null;
+        this.scryptHash = null;
     }
 
     /**
@@ -895,6 +897,7 @@ public class Block extends Message {
         unCacheHeader();
         this.difficultyTarget = compactForm;
         this.hash = null;
+        this.scryptHash = null;
     }
 
     /**
@@ -910,6 +913,7 @@ public class Block extends Message {
         unCacheHeader();
         this.nonce = nonce;
         this.hash = null;
+        this.scryptHash = null;
     }
 
     public List<Transaction> getTransactions() {

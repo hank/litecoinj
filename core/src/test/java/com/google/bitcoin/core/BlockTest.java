@@ -90,7 +90,7 @@ public class BlockTest {
         // Should find an acceptable nonce.
         block.solve();
         block.verify();
-        assertEquals(block.getNonce(), 2);
+        assertEquals(block.getNonce(), 5);
     }
 
     @Test

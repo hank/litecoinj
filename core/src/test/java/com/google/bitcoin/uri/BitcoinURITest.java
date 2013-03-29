@@ -33,7 +33,7 @@ public class BitcoinURITest {
 
     private BitcoinURI testObject = null;
 
-    private static final String PRODNET_GOOD_ADDRESS = "1KzTSfqjF2iKCduwz59nv2uqh1W2JsTxZH";
+    private static final String PRODNET_GOOD_ADDRESS = "LQz2pJYaeqntA9BFB8rDX5AL2TTKGd5AuN";
 
     /**
      * Tests conversion to Bitcoin URI
