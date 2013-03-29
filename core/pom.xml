@@ -26,9 +26,9 @@
     </parent>
 
     <groupId>com.google</groupId>
-    <artifactId>bitcoinj</artifactId>
+    <artifactId>litecoinj</artifactId>
 
-    <name>bitcoinj</name>
+    <name>litecoinj</name>
     <description>A Java Bitcoin library</description>
 
     <profiles>

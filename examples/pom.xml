@@ -26,9 +26,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.google</groupId>
-    <artifactId>bitcoinj-examples</artifactId>
+    <artifactId>litecoinj-examples</artifactId>
 
-    <name>bitcoinj Examples</name>
+    <name>litecoinj Examples</name>
     <description>A collection of examples using the bitcoinj library</description>
 
     <dependencies>

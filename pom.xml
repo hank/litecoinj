@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.google</groupId>
-  <artifactId>bitcoinj-parent</artifactId>
+  <artifactId>litecoinj-parent</artifactId>
   <version>0.8-SNAPSHOT</version>
   <packaging>pom</packaging>
 
@@ -13,7 +13,7 @@
     <module>tools</module>
   </modules>
 
-  <name>bitcoinj Parent</name>
+  <name>litecoinj Parent</name>
   <description>Provides the common configuration for the BitCoinJ modules</description>
   <url>http://code.google.com/p/bitcoinj</url>
 

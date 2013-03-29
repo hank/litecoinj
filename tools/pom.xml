@@ -26,9 +26,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.google</groupId>
-  <artifactId>bitcoinj-tools</artifactId>
+  <artifactId>litecoinj-tools</artifactId>
 
-  <name>bitcoinj Tools</name>
+  <name>litecoinj Tools</name>
   <description>A collection of useful tools that use the bitcoinj library to perform wallet operations</description>
 
   <build>
