@@ -4,7 +4,7 @@
 
   <groupId>com.google</groupId>
   <artifactId>litecoinj-parent</artifactId>
-  <version>0.8-SNAPSHOT</version>
+  <version>0.81-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -14,12 +14,8 @@
   </modules>
 
   <name>litecoinj Parent</name>
-  <description>Provides the common configuration for the BitCoinJ modules</description>
-  <url>http://code.google.com/p/bitcoinj</url>
-
-  <ciManagement>
-    <url>http://ci.bitcoinj.org/</url>
-  </ciManagement>
+  <description>Provides the common configuration for the LitecoinJ modules</description>
+  <url>http://code.google.com/p/litecoinj</url>
 
   <licenses>
     <license>
@@ -98,18 +94,18 @@
 
   <issueManagement>
     <system>Google Code</system>
-    <url>http://code.google.com/p/bitcoinj/issues/list</url>
+    <url>http://code.google.com/p/litecoinj/issues/list</url>
   </issueManagement>
 
   <mailingLists>
     <mailingList>
-      <name>bitcoinj Google Group</name>
-      <post>https://groups.google.com/forum/#!forum/bitcoinj</post>
+      <name>litecoinj Google Group</name>
+      <post>https://groups.google.com/forum/#!forum/litecoinj</post>
     </mailingList>
   </mailingLists>
 
   <scm>
-    <url>http://code.google.com/p/bitcoinj/source/checkout</url>
+    <url>http://code.google.com/p/litecoinj/source/checkout</url>
   </scm>
 
   <!-- Common build plugin configuration -->
@@ -152,7 +148,7 @@
         <artifactId>slf4j-api</artifactId>
         <version>${slf4j.version}</version>
       </dependency>
-      <!-- bitcoinj consumers are expected to provide their own SLF4J adapters
+      <!-- litecoinj consumers are expected to provide their own SLF4J adapters
     such as logback, slf4j-log4j12, slf4j-jcl and so on
     see http://www.slf4j.org/faq.html -->
       <dependency>

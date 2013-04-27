@@ -20,7 +20,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>com.google</groupId>
-        <artifactId>bitcoinj-parent</artifactId>
+        <artifactId>litecoinj-parent</artifactId>
         <version>0.8-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -29,12 +29,12 @@
     <artifactId>litecoinj-examples</artifactId>
 
     <name>litecoinj Examples</name>
-    <description>A collection of examples using the bitcoinj library</description>
+    <description>A collection of examples using the litecoinj library</description>
 
     <dependencies>
         <dependency>
             <groupId>com.google</groupId>
-            <artifactId>bitcoinj</artifactId>
+            <artifactId>litecoinj</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>

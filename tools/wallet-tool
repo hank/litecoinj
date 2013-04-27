@@ -3,13 +3,13 @@
 set -e
 
 # Check if the jar has been built.
-if [ ! -e target/bitcoinj-tools-*.jar ] || [[ "$ALWAYS_BUILD_WALLETTOOL" != "" ]]; then
+if [ ! -e target/litecoinj-tools-*.jar ] || [[ "$ALWAYS_BUILD_WALLETTOOL" != "" ]]; then
   echo "Compiling WalletTool to a JAR"
   cd ../core
   mvn install -DskipTests
   cd ../tools
-  [ -e target/bitcoinj-tools-*.jar ] && rm target/bitcoinj-tools-*.jar
+  [ -e target/litecoinj-tools-*.jar ] && rm target/litecoinj-tools-*.jar
   mvn package -DskipTests
 fi
 
-java -Xmx4g -server -jar target/bitcoinj-tools-*.jar $*
+java -Xmx4g -server -jar target/litecoinj-tools-*.jar $*

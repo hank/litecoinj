@@ -24,7 +24,7 @@
 
 package wallet;
 
-option java_package = "org.bitcoinj.wallet";
+option java_package = "org.litecoinj.wallet";
 option java_outer_classname = "Protos";
 
 message PeerAddress {
@@ -43,7 +43,7 @@ message EncryptedPrivateKey {
 }
 
 /**
- * A key used to control Bitcoin spending.
+ * A key used to control Litecoin spending.
  *
  * Either the private key, the public key or both may be present.  It is recommended that
  * if the private key is provided that the public key is provided too because deriving it is slow.
@@ -53,8 +53,8 @@ message EncryptedPrivateKey {
  */
 message Key {
   enum Type {
-    ORIGINAL = 1;              // Unencrypted - Original bitcoin secp256k1 curve
-    ENCRYPTED_SCRYPT_AES = 2;  // Encrypted with Scrypt and AES - - Original bitcoin secp256k1 curve
+    ORIGINAL = 1;              // Unencrypted - Original litecoin secp256k1 curve
+    ENCRYPTED_SCRYPT_AES = 2;  // Encrypted with Scrypt and AES - - Original litecoin secp256k1 curve
   }
   required Type type = 1;
 
@@ -146,7 +146,7 @@ message TransactionConfidence {
   optional Source source = 7;
 }
 
-/** A bitcoin transaction */
+/** A litecoin transaction */
 
 message Transaction {
   /**
@@ -215,7 +215,7 @@ message Extension {
   required bool mandatory = 3;
 }
 
-/** A bitcoin wallet */
+/** A litecoin wallet */
 message Wallet {
   /**
    * The encryption type of the wallet.
@@ -230,8 +230,8 @@ message Wallet {
   }
 
   required string network_identifier = 1; // the network used by this wallet
-  // org.bitcoin.production = production network (Satoshi genesis block)
-  // org.bitcoin.test = test network (Andresen genesis block)
+  // org.litecoin.production = production network (Satoshi genesis block)
+  // org.litecoin.test = test network (Andresen genesis block)
 
   // The SHA256 hash of the head of the best chain seen by this wallet.
   optional bytes last_seen_block_hash = 2;

@@ -21,15 +21,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.google</groupId>
-        <artifactId>bitcoinj-parent</artifactId>
-        <version>0.8-SNAPSHOT</version>
+        <artifactId>litecoinj-parent</artifactId>
+        <version>0.81-SNAPSHOT</version>
     </parent>
 
     <groupId>com.google</groupId>
     <artifactId>litecoinj</artifactId>
 
     <name>litecoinj</name>
-    <description>A Java Bitcoin library</description>
+    <description>A Java Litecoin library</description>
 
     <profiles>
         <profile>
@@ -121,7 +121,7 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
-        <!-- bitcoinj consumers are expected to provide their own SLF4J adapters
+        <!-- litecoinj consumers are expected to provide their own SLF4J adapters
              such as logback, slf4j-log4j12, slf4j-jcl and so on
              see http://www.slf4j.org/faq.html -->
         <dependency>
