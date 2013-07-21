@@ -4,12 +4,12 @@
 
   <groupId>com.google</groupId>
   <artifactId>litecoinj-parent</artifactId>
-  <version>0.81-SNAPSHOT</version>
+  <version>0.82-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
     <module>core</module>
-    <module>examples</module>
+<!--    <module>examples</module> -->
     <module>tools</module>
   </modules>
 
@@ -29,6 +29,10 @@
   <!-- Committers -->
   <developers>
     <!-- Information already public -->
+    <developer>
+      <name>Erik Gregg</name>
+      <email>ralree@gmail.com</email>
+    </developer>
     <developer>
       <name>Mike Hearn</name>
       <email>hearn@google.com</email>

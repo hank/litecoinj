@@ -30,6 +30,7 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.primitives.Ints;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import org.slf4j.Logger;
@@ -1109,8 +1110,6 @@ public class Wallet implements Serializable, BlockChainListener {
             }
         }
 
-        log.info("Balance is now: " + litecoinValueToFriendlyString(getBalance()));
-
         // WARNING: The code beyond this point can trigger event listeners on transaction confidence objects, which are
         // in turn allowed to re-enter the Wallet. This means we cannot assume anything about the state of the wallet
         // from now on. The balance just received may already be spent.
@@ -1126,6 +1125,9 @@ public class Wallet implements Serializable, BlockChainListener {
                 ignoreNextNewBlock.add(txHash);
             }
         }
+	// Implements revision d64f55589694
+        BigInteger newBalance = getBalance();
+        log.info("Balance is now: " + litecoinValueToFriendlyString(getBalance()));
 
         // Inform anyone interested that we have received or sent coins but only if:
         //  - This is not due to a re-org.
@@ -1138,7 +1140,6 @@ public class Wallet implements Serializable, BlockChainListener {
         // TODO: Decide whether to run the event listeners, if a tx confidence listener already modified the wallet.
         boolean wasPending = wtx != null;
         if (!reorg && bestChain && !wasPending) {
-            BigInteger newBalance = getBalance();
             int diff = valueDifference.compareTo(BigInteger.ZERO);
             // We pick one callback based on the value difference, though a tx can of course both send and receive
             // coins from the wallet.
@@ -3109,6 +3110,74 @@ public class Wallet implements Serializable, BlockChainListener {
             }
         } finally {
             lock.lock();
+        }
+    }
+	
+
+    /**
+     * Trims the wallet to a reasonable size, currently by evicting spent transactions.
+     *
+     * This is an attempt to conserve memory. It can in future be extended to evicting dead and
+     * unconfirming pending transactions, used keys, and more.
+     *
+     * As a general rule of thumb one transaction takes about 2 kB of heap memory.
+     *
+     * @param minTransactionsToKeep
+     *            minumum number of transactions to keep in wallet
+     */
+    public void trim(final int minTransactionsToKeep) {
+        lock.lock();
+        try {
+            // Determine number of transactions to evict.
+            final int constNumTransactions = pending.size() + unspent.size() + inactive.size()
+                    + dead.size();
+            final int numTransactions = constNumTransactions + spent.size();
+            final int numToEvict = numTransactions - minTransactionsToKeep;
+    
+            log.info("wallet has {} transactions and should have no more than {} transactions",
+                    numTransactions, minTransactionsToKeep);
+    
+            if (numToEvict <= 0)
+                return; // all roger, nothing to worry about
+    
+            // Build up list of candidates to delete. Should be spent and buried deep enough under
+            // blocks.
+            List<Transaction> candidates = new LinkedList<Transaction>();
+            for (final Transaction tx : spent.values()) {
+                if (tx.hasConfidence() && tx.getConfidence().getDepthInBlocks() > 2016) // interval
+                    candidates.add(tx);
+            }
+            log.info("looked for {} txns to evict and found {} candidates", numToEvict,
+                    candidates.size());
+    
+            if (candidates.size() == 0)
+                return; // we're too fat, but nothing can be done
+    
+            // If there are more candidates than needed, make sure only the oldest get evicted.
+            if (candidates.size() > numToEvict) {
+    
+                Collections.sort(candidates, new Comparator<Transaction>() {
+                    @Override
+                    public int compare(final Transaction tx1, final Transaction tx2) {
+                        return -Ints.compare(tx1.getConfidence().getDepthInBlocks(), tx2
+                                .getConfidence().getDepthInBlocks());
+                    }
+                });
+    
+                candidates = candidates.subList(0, numToEvict);
+            }
+    
+            // Evict transactions from spent pool. Keep pending and dead for now.
+            for (final Transaction tx : candidates)
+                spent.remove(tx.getHash());
+    
+            queueAutoSave();
+    
+            log.info("evicted {} spent transactions, wallet has {} transactions after trim",
+                    candidates.size(), constNumTransactions + spent.size());
+    
+        } finally {
+            lock.unlock();
         }
     }
 }
