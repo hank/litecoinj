@@ -145,7 +145,7 @@ public class NetworkParameters implements Serializable {
             acceptableAddressCodes = new int[] { 48 };
             dumpedPrivateKeyHeader = 128;
             addressHeader = 48;
-		if(type == 100) port = 10333;
+            if(type == 100) port = 10333;
             else port = 9333;
             packetMagic = 0xfbc0b6db;
             genesisBlock.setDifficultyTarget(0x1e0ffff0L);
