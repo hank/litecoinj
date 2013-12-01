@@ -77,16 +77,17 @@ public class SeedPeers implements PeerDiscovery {
 
     private InetAddress convertAddress(int seed) throws UnknownHostException {
         byte[] v4addr = new byte[4];
-        v4addr[0] = (byte) (0xFF & (seed));
-        v4addr[1] = (byte) (0xFF & (seed >> 8));
-        v4addr[2] = (byte) (0xFF & (seed >> 16));
-        v4addr[3] = (byte) (0xFF & (seed >> 24));
+        v4addr[3] = (byte) (0xFF & (seed));
+        v4addr[2] = (byte) (0xFF & (seed >> 8));
+        v4addr[1] = (byte) (0xFF & (seed >> 16));
+        v4addr[0] = (byte) (0xFF & (seed >> 24));
         return InetAddress.getByAddress(v4addr);
     }
 
     public static int[] seedAddrs =
             {
-                    0x3210e52d
+                    0x3210e52d, // joint
+                    0x4A6B4693, // home
             };
     
     public void shutdown() {
