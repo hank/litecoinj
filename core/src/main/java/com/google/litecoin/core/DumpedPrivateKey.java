@@ -58,13 +58,18 @@ public class DumpedPrivateKey extends VersionedChecksummedBytes {
      *
      * @param params  The expected network parameters of the key. If you don't care, provide null.
      * @param encoded The base58 encoded string.
+     * @param importAnyway Imports a key with any version
      * @throws AddressFormatException If the string is invalid or the header byte doesn't match the network params.
      */
-    public DumpedPrivateKey(NetworkParameters params, String encoded) throws AddressFormatException {
+    public DumpedPrivateKey(NetworkParameters params, String encoded, boolean importAnyway) throws AddressFormatException {
         super(encoded);
-        if (params != null && version != params.dumpedPrivateKeyHeader)
-            throw new AddressFormatException("Mismatched version number, trying to cross networks? " + version +
-                    " vs " + params.dumpedPrivateKeyHeader);
+        if (params != null && version != (params.dumpedPrivateKeyHeader + params.addressHeader)) {
+            if(!importAnyway) {
+                throw new AddressFormatException(
+                    "Mismatched version number, trying to cross networks? " + 
+                    version + " vs " + params.dumpedPrivateKeyHeader);
+            }
+        }
         if (bytes.length == 33) {
             compressed = true;
             bytes = Arrays.copyOf(bytes, 32);  // Chop off the additional marker byte.

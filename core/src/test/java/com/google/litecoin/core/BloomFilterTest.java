@@ -50,7 +50,7 @@ public class BloomFilterTest {
     public void walletTest() throws Exception {
         NetworkParameters params = NetworkParameters.prodNet();
 
-        DumpedPrivateKey privKey = new DumpedPrivateKey(params, "5Kg1gnAjaLfKiwhhPpGS3QfRg2m6awQvaj98JCZBZQ5SuS2F15C");
+        DumpedPrivateKey privKey = new DumpedPrivateKey(params, "5Kg1gnAjaLfKiwhhPpGS3QfRg2m6awQvaj98JCZBZQ5SuS2F15C", false);
         
         Address addr = privKey.getKey().toAddress(params);
         assertTrue(addr.toString().equals("17Wx1GQfyPTNWpQMHrTwRSMTCAonSiZx9e"));

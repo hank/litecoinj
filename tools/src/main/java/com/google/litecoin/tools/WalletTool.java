@@ -664,6 +664,9 @@ public class WalletTool {
     }
 
     private static void addKey() {
+        addKey(false);
+    }
+    private static void addKey(boolean ignoreKeyVersion) {
         ECKey key;
         long creationTimeSeconds = 0;
         if (options.has(unixtimeFlag)) {
@@ -676,7 +679,7 @@ public class WalletTool {
             if (data.charAt(0) == 'L') {
                 DumpedPrivateKey dpk;
                 try {
-                    dpk = new DumpedPrivateKey(params, data);
+                    dpk = new DumpedPrivateKey(params, data, false);
                 } catch (AddressFormatException e) {
                     System.err.println("Could not parse dumped private key " + data);
                     return;

@@ -143,7 +143,7 @@ public class ECKeyTest {
     public void base58Encoding() throws Exception {
         String addr = "mqAJmaxMcG5pPHHc3H3NtyXzY7kGbJLuMF";
         String privkey = "92shANodC6Y4evT5kFzjNFQAdjqTtHAnDTLzqBBq4BbKUPyx6CD";
-        ECKey key = new DumpedPrivateKey(NetworkParameters.testNet(), privkey).getKey();
+        ECKey key = new DumpedPrivateKey(NetworkParameters.testNet(), privkey, false).getKey();
         assertEquals(privkey, key.getPrivateKeyEncoded(NetworkParameters.testNet()).toString());
         assertEquals(addr, key.toAddress(NetworkParameters.testNet()).toString());
     }
@@ -151,7 +151,7 @@ public class ECKeyTest {
     @Test
     public void base58Encoding_leadingZero() throws Exception {
         String privkey = "91axuYLa8xK796DnBXXsMbjuc8pDYxYgJyQMvFzrZ6UfXaGYuqL";
-        ECKey key = new DumpedPrivateKey(NetworkParameters.testNet(), privkey).getKey();
+        ECKey key = new DumpedPrivateKey(NetworkParameters.testNet(), privkey, false).getKey();
         assertEquals(privkey, key.getPrivateKeyEncoded(NetworkParameters.testNet()).toString());
         assertEquals(0, key.getPrivKeyBytes()[0]);
     }
@@ -162,7 +162,7 @@ public class ECKeyTest {
         for (int i = 0 ; i < 20 ; i++) {
             ECKey key = new ECKey();
             ECKey key1 = new DumpedPrivateKey(NetworkParameters.testNet(),
-                    key.getPrivateKeyEncoded(NetworkParameters.testNet()).toString()).getKey();
+                    key.getPrivateKeyEncoded(NetworkParameters.testNet()).toString(), false).getKey();
             assertEquals(Utils.bytesToHexString(key.getPrivKeyBytes()),
                     Utils.bytesToHexString(key1.getPrivKeyBytes()));
         }
@@ -359,7 +359,7 @@ public class ECKeyTest {
         assertTrue(key.isCompressed());
         NetworkParameters params = NetworkParameters.unitTests();
         String base58 = key.getPrivateKeyEncoded(params).toString();
-        ECKey key2 = new DumpedPrivateKey(params, base58).getKey();
+        ECKey key2 = new DumpedPrivateKey(params, base58, false).getKey();
         assertTrue(key2.isCompressed());
         assertTrue(Arrays.equals(key.getPrivKeyBytes(), key2.getPrivKeyBytes()));
         assertTrue(Arrays.equals(key.getPubKey(), key2.getPubKey()));
