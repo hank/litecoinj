@@ -1810,6 +1810,15 @@ public class Wallet implements Serializable, BlockChainListener {
         }
     }
 
+    // Alternative method for already built requests
+    public Transaction createSend(SendRequest req) {
+        if (completeTx(req)) {
+            return req.tx;
+        } else {
+            return null;  // No money.
+        }
+    }
+
     /**
      * Sends coins to the given address but does not broadcast the resulting pending transaction. It is still stored
      * in the wallet, so when the wallet is added to a {@link PeerGroup} or {@link Peer} the transaction will be
